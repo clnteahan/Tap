@@ -1,8 +1,8 @@
 #ifndef TAP_MANAGER_H
 #define TAP_MANAGER_H
+#include <vector>
 #include "package.h"
 #include "remote.h"
-#include <vector>
 
 class Manager {
 public:

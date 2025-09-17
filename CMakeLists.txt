@@ -5,22 +5,14 @@ set(CMAKE_CXX_STANDARD 26)
 
 find_package(CURL REQUIRED)
 
-add_executable(Tap main.cpp
-        package.h
-        manager.h
-        remote.h
-        manager.cpp
-        package.cpp
-        remote.cpp)
+file(GLOB_RECURSE SOURCES src/classes/*.cpp src/classes/*.h)
 
-add_executable(Test test.cpp
-        package.h
-        manager.h
-        remote.h
-        manager.cpp
-        package.cpp
-        remote.cpp)
+add_executable(Tap src/main.cpp ${SOURCES})
+
+add_executable(Test src/test.cpp ${SOURCES})
 
 target_include_directories(Tap PRIVATE ${CURL_INCLUDE_DIRS})
 
 target_link_libraries(Tap PRIVATE CURL::libcurl)
+
+#add_executable(Test src/test.cpp ${SOURCES})

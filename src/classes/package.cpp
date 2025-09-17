@@ -1,6 +1,6 @@
 #include "package.h"
-#include <vector>
 #include <sstream>
+#include <vector>
 
 Package::Package(string name, string version, Repo *repo, PackageType type) {
 	this->name = name;
