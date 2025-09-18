@@ -1,5 +1,10 @@
 #include "manager.h"
 
+ Manager::Manager() {
+	 updateTapPath();
+ }
+
+
 int Manager::addRepo(Repo repo) {
 	for (auto& r : this->repos) {
 		if (r.getName() == repo.getName()) {
@@ -63,9 +68,42 @@ Package* Manager::getPackage(string name) {
 	return nullptr; // Package not found
 }
 
-Package* Manager::getPackage(int index) {
-	if (index >= 0 && index < static_cast<int>(this->packages.size())) {
+Package* Manager::getPackage(size_t index) {
+	if (index < this->packages.size()) {
 		return &this->packages[index]; // Return pointer to package at index
 	}
 	return nullptr; // Index out of bounds
+}
+
+size_t Manager::getRepoCount() {
+	return this->repos.size();
+}
+
+Repo* Manager::getRepo(string name) {
+	for (auto& repo : this->repos) {
+		if (repo.getName() == name) {
+			return &repo; // Return pointer to found repo
+		}
+	}
+	return nullptr; // Repository not found
+}
+Repo* Manager::getRepo(size_t index) {
+	if (index < this->getRepoCount()) {
+		return &this->repos[index]; // Return pointer to repo at index
+	}
+	return nullptr; // Index out of bounds
+}
+
+void Manager::updateTapPath() {
+	string tpath = getenv("TAP_PATH");
+	if (tpath[tpath.length() - 1] != '/') {
+		tpath +="/";
+	}
+	this->tapPath = tpath;
+}
+
+void Manager::refreshRepos() {
+	for (size_t i = 0; i < this->getRepoCount(); i++) {
+		this->getRepo(i)->downloadManifest(this->tapPath);
+	}
 }

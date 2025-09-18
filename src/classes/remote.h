@@ -10,6 +10,7 @@ public:
 	string getUrl();
 	string getName();
 	void setName(string name);
+	int downloadManifest(string path);
 	int download(string pkg, string path);
 private:
 	string url;
