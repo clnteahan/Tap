@@ -4,8 +4,6 @@
 #include "classes/manager.h"
 #include "classes/package.h"
 
-#define TEST true
-
 using namespace std;
 
 int main() {
@@ -15,5 +13,6 @@ int main() {
 	m->addRepo(r);
 	m->getRepo("GCC")->download("Option-Summary.html", "/mnt/Drive2/Programming/OS/Tap/manifest");
 	cout << sha256_string("Hi there") << endl;
+	delete m;
 	return 0;
 }
